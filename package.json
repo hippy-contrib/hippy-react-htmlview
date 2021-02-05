@@ -1,0 +1,38 @@
+{
+  "name": "hippy-react-htmlview",
+  "version": "1.0.0",
+  "description": "HTML rich text render based on Hippy",
+  "main": "src/index.js",
+  "private": false,
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "release": "npm version patch && git push && git push --tags && npm publish",
+    "eslint": "eslint --fix --ext .js ./src",
+    "prettier": "prettier --write '*.js' 'src/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hippy-contrib/hippy-react-htmlview"
+  },
+  "keywords": [
+    "hippy",
+    "react",
+    "htmlview"
+  ],
+  "author": "hippy-contrib",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-native": "^3.7.0",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "camelcase": "^6.2.0",
+    "entities": "^2.2.0",
+    "htmlparser2-without-node-native": "^3.9.2"
+  }
+}
