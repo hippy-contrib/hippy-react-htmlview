@@ -1,6 +1,6 @@
 {
   "name": "hippy-react-htmlview",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HTML rich text render based on Hippy",
   "main": "src/index.js",
   "private": false,
