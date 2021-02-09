@@ -114,7 +114,7 @@ HTMLView.propTypes = {
   renderNode: PropTypes.func,
   RootComponent: PropTypes.func,
   rootComponentProps: PropTypes.object,
-  style: PropTypes.object, // todo
+  style: PropTypes.any,
   stylesheet: PropTypes.object,
   TextComponent: PropTypes.func,
   textComponentProps: PropTypes.object,
