@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-    "release": "npm version patch && git push && git push --tags && npm publish",
+    "release": "npm version patch && git push && git push --tags && npm publish --registry=https://registry.npmjs.org/",
     "eslint": "eslint --fix --ext .js ./src",
     "prettier": "prettier --write '*.js' 'src/**/*.js'"
   },
