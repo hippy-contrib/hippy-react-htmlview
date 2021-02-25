@@ -67,6 +67,9 @@ export default (rawHtml, customOpts = {}, done) => {
 
       const { TextComponent } = opts;
       node.cssStyle = node.attribs && node.attribs.style ? cssStyle2HippyStyle(node.attribs.style) : {};
+      if (node.attribs && node.attribs.color) {
+        node.cssStyle.color = node.attribs.color;
+      }
 
       if (node.type === 'text') {
         const defaultStyle = opts.textComponentProps ? opts.textComponentProps.style : null;
