@@ -35,6 +35,10 @@ export default (rawHtml, customOpts = {}, done) => {
     return { ...parentStyle, ...style };
   };
 
+  const cssProperty2HippyProperty = (property = '') => {
+    return isNaN(parseFloat(property, 10)) ? property : parseFloat(property, 10);
+  };
+
   const cssStyle2HippyStyle = (cssRules = '') => {
     if (!cssRules) return {};
 
@@ -47,7 +51,7 @@ export default (rawHtml, customOpts = {}, done) => {
         key = (key || '').trim();
         value = (value || '').trim();
         key = camelcase(key);
-        value = isNaN(parseFloat(value, 10)) ? value : parseFloat(value, 10);
+        value = cssProperty2HippyProperty(value);
         res[key] = value;
       });
     return res;
@@ -67,8 +71,15 @@ export default (rawHtml, customOpts = {}, done) => {
 
       const { TextComponent } = opts;
       node.cssStyle = node.attribs && node.attribs.style ? cssStyle2HippyStyle(node.attribs.style) : {};
-      if (node.attribs && node.attribs.color) {
-        node.cssStyle.color = node.attribs.color;
+
+      // inject style to DOM such as: <dom color="#000" width="16px" height="16px"/>
+      if (node.attribs) {
+        const independentStyleAttribs = ['color', 'width', 'height'];
+        independentStyleAttribs.forEach((key) => {
+          if (node.attribs[key]) {
+            node.cssStyle[key] = cssProperty2HippyProperty(node.attribs[key]);
+          }
+        });
       }
 
       if (node.type === 'text') {
@@ -88,7 +99,7 @@ export default (rawHtml, customOpts = {}, done) => {
 
       if (node.type === 'tag') {
         if (node.name === 'img') {
-          return <Img key={ index } attribs={ node.attribs } />;
+          return <Img key={ index } src={ node.attribs.src } style={ node.cssStyle } />;
         }
 
         let linkPressHandler = null;
