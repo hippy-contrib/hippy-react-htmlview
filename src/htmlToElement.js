@@ -53,6 +53,11 @@ export default (rawHtml, customOpts = {}, done) => {
         key = camelcase(key);
         value = cssProperty2HippyProperty(value);
         res[key] = value;
+
+        // bugfix: fontWeight must be a String in iOS.
+        if (key === 'fontWeight') {
+          res[key] = value.toString();
+        }
       });
     return res;
   };
@@ -70,9 +75,11 @@ export default (rawHtml, customOpts = {}, done) => {
       }
 
       const { TextComponent } = opts;
+
+      // transform <el style="color: red; font-size: 12px;"/> to Hippy style: { color: 'red', fontSize: 12 }
       node.cssStyle = node.attribs && node.attribs.style ? cssStyle2HippyStyle(node.attribs.style) : {};
 
-      // inject style to DOM such as: <dom color="#000" width="16px" height="16px"/>
+      // inject style to `node.cssStyle` such as: <el color="#000" width="16px" height="16px"/>
       if (node.attribs) {
         const independentStyleAttribs = ['color', 'width', 'height'];
         independentStyleAttribs.forEach((key) => {
